@@ -30,7 +30,7 @@ const recursiveAtm =
       return EMPTY_WITHDRAWAL;
     }
 
-    const buildWithdrawalWithNotesOfLowerValue = (note: Banknote, index: number): Withdrawal => {
+    const serveWithdrawalWithNotesOfLowerValue = (note: Banknote, index: number): Withdrawal => {
       const remainingNotes = notes.slice(index + 1);
       const { quotient, remainder } = euclidianDivision({ numerator: amount, denominator: note });
       return {
@@ -42,11 +42,12 @@ const recursiveAtm =
     const sortByIncreasingNumberOfNotes = (w1: Withdrawal, w2: Withdrawal): number =>
       countNumberOfBanknotes(w1) - countNumberOfBanknotes(w2);
 
-    const isBestSolutionForSure = (withdrawal: Withdrawal): boolean => countNumberOfBanknotes(withdrawal) === 1;
+    const isBestWithdrawalForSure = (withdrawal: Withdrawal): boolean => countNumberOfBanknotes(withdrawal) === 1;
 
     return findBestSolution<Banknote, Withdrawal>({
-      map: buildWithdrawalWithNotesOfLowerValue,
+      map: serveWithdrawalWithNotesOfLowerValue,
       compare: sortByIncreasingNumberOfNotes,
+      accelerate: isBestWithdrawalForSure,
     })(notes);
   };
 

@@ -50,6 +50,16 @@ describe("Test of atm()", () => {
     };
     expect(atm(60)).toEqual(expected);
   });
+
+  test("[Performance] It should deliver many banknotes (dynamic programming and (optimization?) required)", () => {
+    const expected: Withdrawal = {
+      ...EMPTY_WITHDRAWAL,
+      500: 5,
+      200: 1,
+      20: 2,
+    };
+    expect(atm(2740)).toEqual(expected);
+  });
 });
 
 describe("Test of countNumberOfBanknotes()", () => {
